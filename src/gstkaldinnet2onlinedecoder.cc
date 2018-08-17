@@ -1671,7 +1671,9 @@ gst_kaldinnet2onlinedecoder_load_word_syms(Gstkaldinnet2onlinedecoder * filter,
         if (strcmp(str, "") != 0) {
             try {
                 GST_DEBUG_OBJECT(filter, "Loading word symbols file: %s", str);
-
+		// TODO
+		// re-edit the ReadText, make it support encrypt word file
+		// ...
                 fst::SymbolTable * new_word_syms = fst::SymbolTable::ReadText(str);
                 if (!new_word_syms) {
                     throw std::runtime_error("Word symbol table not read.");
@@ -1803,6 +1805,11 @@ gst_kaldinnet2onlinedecoder_load_model(Gstkaldinnet2onlinedecoder * filter,
       try {
         bool binary;
         Input ki(str, &binary);
+	// TODO
+	// re-edit the Input ki, make it support encrypt model file
+	// de_ki = decrypt(ki, &binary);
+	// filter->trans_model->Read(de_ki.Stream(), binary);
+	// ...
         filter->trans_model->Read(ki.Stream(), binary);
         if (filter->nnet_mode == NNET2) {
           filter->am_nnet2->Read(ki.Stream(), binary);
@@ -1843,7 +1850,9 @@ gst_kaldinnet2onlinedecoder_load_fst(Gstkaldinnet2onlinedecoder * filter,
     if (strcmp(str, "") != 0) {
       try {
         GST_DEBUG_OBJECT(filter, "Loading decoder graph: %s", str);
-
+	// TODO
+	// re-edit the ReadFstKaldiGeneric, make it support encrypt fst file
+	// ...
         fst::Fst<fst::StdArc> * new_decode_fst = fst::ReadFstKaldiGeneric(str);
 
         // Delete objects if needed
